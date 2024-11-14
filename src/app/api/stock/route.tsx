@@ -1,27 +1,42 @@
-// src/app/api/stock/route.ts
+import prisma from '@/lib/db';
 
-import prisma from "@/lib/db";
-import { NextResponse } from "next/server";
-
-export async function GET() {
-    try {
-        const stocks = await prisma.stock.findMany();
-        return NextResponse.json(stocks);  // Ensure it returns JSON
-    } catch (error) {
-        console.error("API Error:", error);  // Log the error to troubleshoot
-        return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
-    }
+// Get all stock items
+export async function GET(request: Request) {
+  try {
+    const stock = await prisma.stock.findMany();
+    return new Response(JSON.stringify(stock), { status: 200 });
+  } catch (error) {
+    console.error("Error fetching stock data:", error);
+    return new Response("Failed to fetch stock data", { status: 500 });
+  }
 }
 
+// Create new stock item
 
 export async function POST(req: Request) {
-  const data = await req.json();
-  const newStock = await prisma.stock.create({ data });
-  return NextResponse.json(newStock);
+  try {
+    const { itemName, description, quantity, price } = await req.json();
+    
+    // Check if the required fields are provided
+    if (!itemName || !quantity || !price) {
+      return new Response('Missing required fields', { status: 400 });
+    }
+
+    // Add the new stock entry
+    const newStock = await prisma.stock.create({
+      data: {
+        itemName,
+        description,
+        quantity,
+        price,
+      },
+    });
+
+    return new Response(JSON.stringify(newStock), { status: 201 });
+  } catch (error) {
+    console.error('Error creating stock:', error);
+    return new Response('Failed to add stock', { status: 500 });
+  }
 }
 
-export async function DELETE(req: Request) {
-  const { id } = await req.json();
-  await prisma.stock.delete({ where: { id } });
-  return NextResponse.json({ message: 'Stock deleted' });
-}
+
