@@ -50,6 +50,8 @@ function StockDialog({ id }: { id: number }) {
                 { headers: { 'Content-Type': 'application/json' } } // Headers
             )
             toast({
+                variant: "destructive", // If supported by your toast system
+
                 title: "Sucess",
                 description: response.data.message
             })
@@ -64,7 +66,7 @@ function StockDialog({ id }: { id: number }) {
     return (
         <Dialog open={open} >
             <DialogTrigger onClick={() => setOpen(true)}>
-                <IoIosAddCircle className="text-center mt-2" />
+            <IoIosAddCircle style={{ fontSize: "30px" }} className="w-14 text-center mt-2" />
             </DialogTrigger>
             <DialogContent>
                 <DialogHeader>
