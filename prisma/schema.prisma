@@ -131,7 +131,11 @@ generator client {
 }
 
 datasource db {
+<<<<<<< HEAD
   provider = "sqlite"
+=======
+  provider = "mysql"
+>>>>>>> bugfix/changing-db-provider
   url      = env("DATABASE_URL") // Ensure this is correctly configured in .env
 }
 
