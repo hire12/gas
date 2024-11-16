@@ -282,7 +282,7 @@ export default function TransactionPage() {
             <option value="">Select Stock Item</option>
             {stockItems.map((item) => (
               <option key={item.id} value={item.id}>
-                {item.itemName} (Quantity: {item.quantity})
+                {item.itemName} (Leters: {item.quantity})
               </option>
             ))}
           </select>
