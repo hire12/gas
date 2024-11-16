@@ -1,6 +1,8 @@
 'use client'
 
 import { useEffect, useState } from 'react';
+import { IoIosAdd, IoIosAddCircle } from "react-icons/io";
+import StockDialog from './StockDialog';
 
 interface Stock {
   id: string;
@@ -117,6 +119,8 @@ const StockPage = () => {
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Description</th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Quantity</th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Price</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+
               </tr>
             </thead>
             <tbody className="bg-white divide-y divide-gray-200">
@@ -126,6 +130,10 @@ const StockPage = () => {
                   <td className="px-6 py-4 whitespace-nowrap">{item.description || 'No description'}</td>
                   <td className="px-6 py-4 whitespace-nowrap">{item.quantity}</td>
                   <td className="px-6 py-4 whitespace-nowrap">${item.price}</td>
+                  <td className="flex justify-center items-center ">
+                  <StockDialog id={item.id} />
+                  </td>
+
                 </tr>
               ))}
             </tbody>
