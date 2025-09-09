@@ -74,7 +74,7 @@ gas-management/
 1. Clone the repository:
 
 ```bash
-git clone https://github.com/your-username/gas-management.git
+git clone https://github.com/hire12/gas.git
 cd gas-management
 ```
 
